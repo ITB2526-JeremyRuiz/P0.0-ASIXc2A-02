@@ -4,7 +4,7 @@
 > informàtics en xarxa\
 > **Cicle:** ASIX\
 > **Estat:** En desenvolupament\
-> **Grup:** `Gnn` · **Equip:** `NCC`
+> **Grup:** `G02`
 
 ## 1. Descripció del projecte
 
