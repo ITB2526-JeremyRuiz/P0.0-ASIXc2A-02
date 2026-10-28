@@ -1,217 +1,107 @@
-# P0.0 --- Desplegament d'infraestructura
+# P0.0 — Desplegament d'infraestructura
 
-> **Mòdul:** 0379 --- Projecte intermodular d'administració de sistemes
-> informàtics en xarxa\
-> **Cicle:** ASIX\
-> **Estat:** En desenvolupament\
-> **Grup:** `G02`
+> **Mòdul:** 0379 — Projecte intermodular d'administració de sistemes informàtics en xarxa  
+> **Cicle:** ASIX  
+> **Grup:** G02  
+> **Estat:** En desenvolupament
 
-## 1. Descripció del projecte
+## Descripció
 
-Aquest repositori recull la configuració, els scripts i la documentació
-del projecte **P0.0 --- Desplegament d'infraestructura**.
+Aquest repositori centralitza el codi, la configuració, les proves i la documentació del projecte **P0.0 — Desplegament d'infraestructura**. L'objectiu és dissenyar, desplegar i validar una infraestructura per a una aplicació multicapa amb serveis de xarxa i sistemes, una base de dades i una aplicació web.
 
-L'objectiu és preparar una infraestructura per a una aplicació multicapa
-que integri serveis de xarxa i sistemes, incloent-hi servidor web, accés
-SSH, base de dades, DHCP, DNS i FTP. També es desplegaran dos equips
-client, un amb Windows i un altre amb Linux.
+La documentació es manté progressivament a partir de les tasques realitzades i les evidències disponibles. Els elements marcats com a **pendent**, **previst** o **per verificar** no s'han de considerar implementats.
 
-La configuració concreta, les decisions tècniques i les proves
-realitzades s'aniran documentant progressivament en aquest repositori.
+## Navegació
 
-## 2. Objectius
+- [Documentació general](docs/README.md)
+- [Objectiu i abast del projecte](docs/project/overview.md)
+- [Sprints](docs/sprints/README.md)
+- [Inventari inicial de màquines](docs/infrastructure/machines.md)
+- [Procediment inicial de recuperació de Proxmox](docs/infrastructure/proxmox-recovery.md)
+- [Relació provisional amb els resultats d'aprenentatge](docs/evaluation/ra-mapping.md)
+- [Índex d'evidències](evidence/README.md)
 
--   [ ] Dissenyar i documentar l'arquitectura de la infraestructura.
--   [ ] Configurar un router amb les xarxes DMZ, intranet i NAT.
--   [ ] Desplegar i configurar els serveis requerits.
--   [ ] Crear una base de dades MySQL i importar-hi les dades
-    d'equipaments educatius de Barcelona.
--   [ ] Preparar una petita aplicació que mostri les dades
-    emmagatzemades.
--   [ ] Configurar l'accés al repositori Git mitjançant claus SSH.
--   [ ] Documentar el flux de treball Git i el desplegament.
--   [ ] Definir i executar proves de connectivitat i funcionament.
--   [ ] Recollir possibles millores per a una futura versió.
+## Objectius del projecte
 
-## 3. Arquitectura prevista
+- [ ] Dissenyar i documentar l'arquitectura de la infraestructura.
+- [ ] Definir les xarxes, l'adreçament IP i l'encaminament.
+- [ ] Desplegar i configurar els serveis requerits (web, SSH, base de dades, DHCP, DNS i FTP, segons el disseny aprovat).
+- [ ] Importar a MySQL les dades d'equipaments educatius de Barcelona.
+- [ ] Preparar una aplicació que consulti les dades emmagatzemades.
+- [ ] Documentar el desplegament, les proves i la recuperació de les màquines i serveis.
+- [ ] Mantenir el seguiment dels sprints, les incidències i les decisions tècniques.
+- [ ] Relacionar les evidències amb els requisits i els resultats d'aprenentatge.
 
-La infraestructura es dividirà inicialment en tres xarxes:
+## Arquitectura prevista
 
-  -----------------------------------------------------------------------
-  Xarxa                   Funció                  Estat
-  ----------------------- ----------------------- -----------------------
-  **DMZ**                 Ubicació dels serveis   Pendent de definir
-                          que hagin d'estar       
-                          separats de la xarxa    
-                          interna.                
+La proposta inicial contempla tres segments de xarxa: **DMZ**, **intranet** i **NAT**. L'adreçament, les interfícies, les regles i la ubicació definitiva de cada servei s'han de confirmar a partir de la configuració real.
 
-  **Intranet**            Xarxa interna per als   Pendent de definir
-                          serveis i clients.      
+| Component | Identificador observat / previst | Funció prevista | Estat documental |
+|---|---|---|---|
+| Router | 103 — R-NCC | Interconnexió de xarxes | Identificat; configuració pendent de documentar |
+| Servidor de base de dades | 101 — BasedeDatos | MySQL i dades del projecte | Identificat; configuració pendent de verificar |
+| Servidor FTP | 104 — Servidor-FTP | Transferència de fitxers | Identificat; configuració pendent de documentar |
+| Servidor web | 105 — WEB-NCC | Aplicació web | Identificat; configuració pendent de documentar |
+| Client / equip B-NCC | 106 — B-NCC | Funció per confirmar | Identificat; funció pendent de verificar |
+| Contenidor o entorn de desplegament | 107 — despliegue | Proves de desplegament | Identificat; tecnologia i funció exactes per confirmar |
+| Client Ubuntu | 102 — clienteubuntu | Client Linux | Identificat |
+| Entorn de prova | 100 — prueba | Proves | Identificat; funció exacta per confirmar |
 
-  **NAT**                 Connexió amb xarxes     Pendent de definir
-                          externes quan sigui     
-                          necessària.             
-  -----------------------------------------------------------------------
+> **Important:** els noms i IDs anteriors provenen de la vista de Proxmox disponible. Cal verificar les funcions, el tipus de recurs (VM o contenidor), el sistema operatiu i els paràmetres reals abans de donar-los per definitius.
 
-### Equips i serveis
+## Dades obertes
 
-  -----------------------------------------------------------------------
-  Equip / servei    Hostname previst  Funció            Estat
-  ----------------- ----------------- ----------------- -----------------
-  Router            `R-NCC`           Interconnexió de  Pendent
-                                      les tres xarxes.  
+Es preveu treballar amb el conjunt de dades d'equipaments d'educació de Barcelona:
 
-  Servidor web      `W-NCC`           Allotjar          Pendent
-                                      l'aplicació web.  
+- [Portal de dades obertes de Barcelona — equipaments d'educació](https://opendata-ajuntament.barcelona.cat/data/es/dataset/equipament-educacio/)
 
-  Servidor de base  `B-NCC`           MySQL i dades     Pendent
-  de dades                            d'equipaments     
-                                      educatius.        
+La font, la data de descàrrega, el format, el procés d'importació i les comprovacions de qualitat s'han de registrar quan es documenti la importació.
 
-  Servidor FTP      `F-NCC`           Transferència de  Pendent
-                                      fitxers.          
+## Organització del repositori
 
-  Servei SSH        Per definir       Administració     Pendent
-                                      remota dels       
-                                      equips.           
-
-  Servei DHCP       Per definir       Assignació        Pendent
-                                      automàtica de     
-                                      configuració IP.  
-
-  Servei DNS        Per definir       Resolució dels    Pendent
-                                      noms requerits    
-                                      pel projecte.     
-
-  Client Windows    Per definir       Proves des d'un   Pendent
-                                      client Windows.   
-
-  Client Linux      Per definir       Proves des d'un   Pendent
-                                      client Linux.     
-  -----------------------------------------------------------------------
-
-> **Nota:** els hostnames, les adreces IP, les màscares, les
-> passarel·les i la ubicació definitiva dels serveis s'afegiran quan es
-> concreti el disseny de xarxa.
-
-## 4. Serveis i funcionalitats
-
-### Xarxa
-
--   Router amb segments DMZ, intranet i NAT.
--   Configuració de DHCP i DNS.
--   Proves de connectivitat entre xarxes i equips.
-
-### Sistemes i serveis
-
--   Servidor web.
--   Accés remot mitjançant SSH.
--   Servidor FTP.
--   Base de dades MySQL.
--   Aplicació de consulta de les dades importades.
-
-### Dades
-
-Es preveu importar a MySQL el conjunt de dades d'equipaments d'educació
-de la ciutat de Barcelona.
-
--   [Portal de dades obertes de Barcelona --- equipaments
-    d'educació](https://opendata-ajuntament.barcelona.cat/data/es/dataset/equipament-educacio/)
--   [Recurs CSV del conjunt de
-    dades](https://opendata-ajuntament.barcelona.cat/data/dataset/f36b60f2-9541-4d08-b0f9-b0a9313fab3d/resource/29d9ff10-6892-4f16-9012-d5c4997857e7/download)
-
-## 5. Organització del repositori
-
-L'estructura documental es definirà i s'ampliarà a mesura que avancem.
-Com a punt de partida, es proposa aquesta organització:
-
-``` text
-P0.0-ASIXc2gC-Gnn/
+```text
+.
 ├── README.md
-├── docs/                 # Documentació general i decisions tècniques
-├── network/              # Configuració i documentació de xarxa
-├── services/             # Configuració dels serveis desplegats
-├── database/             # Esquema, importació i consultes de la BBDD
-├── application/          # Codi de l'aplicació web
-├── scripts/              # Scripts d'ajuda i automatització
-└── tests/                # Proves i evidències de funcionament
+├── docs/
+│   ├── project/
+│   ├── sprints/
+│   ├── infrastructure/
+│   ├── services/
+│   ├── testing/
+│   └── evaluation/
+├── infrastructure/
+│   ├── diagrams/
+│   └── inventory/
+├── services/
+├── application/
+├── database/
+├── scripts/
+├── tests/
+└── evidence/
+    ├── sprint-01/
+    └── sprint-02/
 ```
 
-> Aquesta estructura és **provisional**. Les carpetes i els fitxers es
-> crearan quan definim el contingut de cada apartat; no s'ha de
-> considerar encara una estructura implementada.
+Aquesta estructura s'ampliarà a mesura que hi hagi contingut real per afegir. No cal crear fitxers buits ni documentar com a implementat cap servei que encara no s'hagi verificat.
 
-## 6. Planificació i seguiment
+## Sprints i seguiment
 
-El projecte es planteja en tres sprints quinzenals. Les tasques,
-prioritats i responsables s'han de concretar al backlog del projecte.
+El seguiment de cada sprint hauria d'incloure objectius, tasques i responsables, treball realitzat, incidències, proves i resultats, revisió i retrospectiva. Consulteu [l'índex de sprints](docs/sprints/README.md).
 
-  ------------------------------------------------------------------------
-  Sprint            Període           Objectiu           Estat
-  ----------------- ----------------- ------------------ -----------------
-  Sprint 1          Per definir       Disseny i          Pendent
-                                      preparació de la   
-                                      infraestructura.   
+## Seguretat
 
-  Sprint 2          Per definir       Desplegament i     Pendent
-                                      configuració dels  
-                                      serveis.           
+- No s'han de pujar contrasenyes, tokens, claus privades, fitxers `.env` reals ni dades personals.
+- Els fitxers d'exemple han de contenir valors ficticis, com ara `.env.example`.
+- Abans de publicar una captura, cal revisar que no mostri credencials, tokens o informació sensible.
+- Les còpies de seguretat s'han d'emmagatzemar en una ubicació autoritzada i no s'han de pujar al repositori si contenen dades o secrets.
 
-  Sprint 3          Per definir       Integració, proves Pendent
-                                      i documentació     
-                                      final.             
-  ------------------------------------------------------------------------
+## Estat actual i pròxims passos
 
-## 7. Estat actual
+Aquesta documentació és incremental. El primer objectiu és consolidar l'inventari, descriure la infraestructura existent i documentar el procediment de recuperació. Després s'afegiran els detalls verificats de xarxa, serveis, aplicació i proves.
 
-Aquest README és el document inicial del repositori. Encara falta
-incorporar-hi la configuració real, els diagrames, les evidències de
-proves i la documentació detallada de cada servei.
-
--   [ ] Confirmar el nom definitiu del grup i l'equip.
--   [ ] Afegir el diagrama de l'arquitectura.
--   [ ] Definir el pla d'adreçament IP.
--   [ ] Documentar la configuració de cada servei.
--   [ ] Afegir les proves i els resultats obtinguts.
--   [ ] Actualitzar l'estat de les tasques a mesura que es completin.
-
-## 8. Seguretat i control de versions
-
--   L'accés del servidor al repositori Git es configurarà mitjançant una
-    parella de claus SSH.
--   Les operacions `clone`, `add`, `commit`, `push` i `pull` es
-    documentaran a la carpeta de documentació quan es prepari aquest
-    apartat.
--   **No s'han de pujar contrasenyes, claus privades, tokens ni altres
-    credencials al repositori.** La informació d'accés de les màquines
-    de pràctiques s'ha de gestionar de manera segura i d'acord amb les
-    indicacions del professorat.
-
-## 9. Propostes de millora futures
-
-Aquest apartat recollirà possibles millores per a una versió posterior
-de la infraestructura. Entre les propostes inicials hi ha:
-
--   Optimitzar el model de dades i les relacions de la base de dades.
--   Implementar operacions CRUD mitjançant rutes d'una API REST.
--   Configurar DNS i un domini públic, si escau.
--   Estudiar la incorporació d'un honeypot a la DMZ.
--   Automatitzar el desplegament amb scripts.
--   Estudiar mesures addicionals per protegir l'accés SSH, com ara *port
-    knocking*.
--   Configurar certificats i noms de domini per als serveis web i FTP,
-    segons la viabilitat i els requisits del projecte.
-
-Aquestes propostes no impliquen que les funcionalitats ja estiguin
-implementades.
-
-## 10. Historial de canvis
-
-  Versió   Canvis
-  -------- ---------------------------------------------
-  `0.1`    Creació de l'estructura inicial del README.
-
-------------------------------------------------------------------------
-
-*Document en construcció. S'anirà ampliant a mesura que es desplegui i
-es validi la infraestructura.*
+- [ ] Verificar inventari, tipus de recurs i funció de cada màquina.
+- [ ] Afegir el diagrama de xarxa amb valors reals.
+- [ ] Registrar IP, prefix, gateway, DNS i VLAN quan correspongui.
+- [ ] Documentar instal·lació i verificació de cada servei.
+- [ ] Afegir evidències seleccionades del Sprint 1.
+- [ ] Completar les proves i el registre d'incidències.
