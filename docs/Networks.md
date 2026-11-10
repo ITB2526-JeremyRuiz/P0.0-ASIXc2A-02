@@ -6,9 +6,9 @@ Este apartado detalla la arquitectura de red, la topología de subredes (DMZ e I
 
 La infraestructura se despliega en la plataforma **Isard VDI** sobre un hipervisor **Proxmox VE (`pvexx`)**. La comunicación se divide en dos zonas lógicas aisladas interconectadas por un router virtual (`R-NCC`):
 
-* **Zona Desmilitarizada (DMZ - `10.10.10.0/24`):** Contiene los servicios accesibles o expuestos al exterior a través de la infraestructura perimetral, específicamente el servidor web (`WEB-NCC`) y el servidor de archivos FTP (`Servidor-FTP` / `F-NCC`).
+- **Zona Desmilitarizada (DMZ - `10.10.10.0/24`):** Contiene los servicios accesibles o expuestos al exterior a través de la infraestructura perimetral, específicamente el servidor web (`WEB-NCC`) y el servidor de archivos FTP (`Servidor-FTP` / `F-NCC`).
 
-* **Zona Intranet Privada (`10.10.20.0/24`):** Contiene los componentes sensibles y no expuestos directamente al exterior, como la base de datos MySQL (`B-NCC`) y los clientes de gestión (`CLI-LINUX`, `CLI-WIN`).
+- **Zona Intranet Privada (`10.10.20.0/24`):** Contiene los componentes sensibles y no expuestos directamente al exterior, como la base de datos MySQL (`B-NCC`) y los clientes de gestión (`CLI-LINUX`, `CLI-WIN`).
 
 ---
 
@@ -19,6 +19,8 @@ La infraestructura se despliega en la plataforma **Isard VDI** sobre un hipervis
 El archivo `/etc/network/interfaces` del nodo Proxmox administra la interfaz WAN asignada por Isard (`enp2s0`), la interfaz privada dedicada a la VPN (`enp3s0`) y los puentes virtuales (`vmbr1` para DMZ y `vmbr2` para Intranet). Asimismo, habilita el reenvío de paquetes IPv4 (`ip_forward`) y la traducción de direcciones de red (NAT/MASQUERADE) para dar salida a los contenedores.
 
 ### Archivo `/etc/network/interfaces`
+
+<div style="background-color: #1e1e1e; border-radius: 8px; padding: 15px; margin: 10px 0;">
 
 ```bash
 auto lo
@@ -67,6 +69,8 @@ iface vmbr2 inet static
 source /etc/network/interfaces.d/*
 ```
 
+</div>
+
 ---
 
 ## 3. Router Virtual Inter-VLAN (`R-NCC`)
@@ -76,6 +80,8 @@ source /etc/network/interfaces.d/*
 El nodo `R-NCC` actúa como la pasarela de enrutamiento centralizada entre el segmento DMZ (`10.10.10.0/24`) y la Intranet (`10.10.20.0/24`). Su fichero `/etc/hosts` mantiene la tabla de resolución local de todos los elementos de la topología corporativa.
 
 ### Archivo `/etc/netplan/50-cloud-init.yaml`
+
+<div style="background-color: #1e1e1e; border-radius: 8px; padding: 15px; margin: 10px 0;">
 
 ```yaml
 network:
@@ -94,7 +100,11 @@ network:
         - 10.10.20.1/24
 ```
 
+</div>
+
 ### Archivo `/etc/hosts`
+
+<div style="background-color: #1e1e1e; border-radius: 8px; padding: 15px; margin: 10px 0;">
 
 ```hosts
 127.0.0.1       localhost
@@ -114,6 +124,8 @@ ff02::2         ip6-allrouters
 10.10.20.51     CLI-WIN
 ```
 
+</div>
+
 ---
 
 ## 4. Servidor Web (`WEB-NCC`)
@@ -123,6 +135,8 @@ ff02::2         ip6-allrouters
 Ubicado en la DMZ (`10.10.10.20`), el contenedor `WEB-NCC` aloja los servicios de aplicación web. En `/etc/hosts`, mapea directamente el dominio `educacion.local` y vincula el hostname `mysql_bcn_db` hacia la IP interna de la base de datos (`10.10.20.10`).
 
 ### Archivo `/etc/netplan/50-cloud-init.yaml`
+
+<div style="background-color: #1e1e1e; border-radius: 8px; padding: 15px; margin: 10px 0;">
 
 ```yaml
 network:
@@ -143,7 +157,11 @@ network:
           - 10.10.10.1
 ```
 
+</div>
+
 ### Archivo `/etc/hosts`
+
+<div style="background-color: #1e1e1e; border-radius: 8px; padding: 15px; margin: 10px 0;">
 
 ```hosts
 127.0.0.1       localhost
@@ -163,6 +181,8 @@ ff02::2         ip6-allrouters
 10.10.20.51     CLI-WIN
 ```
 
+</div>
+
 ---
 
 ## 5. Servidor FTP (`Servidor-FTP` / `F-NCC`)
@@ -172,6 +192,8 @@ ff02::2         ip6-allrouters
 Ubicado en la zona DMZ (`10.10.10.10`), este contenedor proporciona el servicio de transferencia de archivos dentro del perímetro perimetral. Su configuración de Netplan enruta su tráfico predeterminado a través del router `10.10.10.1`, y su tabla local de hosts reconoce la pasarela `R-NCC` y su propio alias de servicio `F-NCC`.
 
 ### Archivo `/etc/netplan/50-cloud-init.yaml`
+
+<div style="background-color: #1e1e1e; border-radius: 8px; padding: 15px; margin: 10px 0;">
 
 ```yaml
 network:
@@ -192,7 +214,11 @@ network:
           - 10.10.10.1
 ```
 
+</div>
+
 ### Archivo `/etc/hosts`
+
+<div style="background-color: #1e1e1e; border-radius: 8px; padding: 15px; margin: 10px 0;">
 
 ```hosts
 127.0.0.1       localhost
@@ -208,6 +234,8 @@ ff02::2         ip6-allrouters
 10.10.10.10     F-NCC
 ```
 
+</div>
+
 ---
 
 ## 6. Servidor de Base de Datos (`B-NCC`)
@@ -217,6 +245,8 @@ ff02::2         ip6-allrouters
 Alojado de forma aislada dentro de la subred Intranet (`10.10.20.10`), este contenedor almacena el motor de base de datos MySQL. Cuenta con salida hacia la pasarela privada `10.10.20.1` (`R-NCC`), limitando las referencias externas en su archivo `/etc/hosts` únicamente a los nodos perimetrales de la DMZ autorizados (`R-NCC` y `F-NCC`).
 
 ### Archivo `/etc/netplan/50-cloud-init.yaml`
+
+<div style="background-color: #1e1e1e; border-radius: 8px; padding: 15px; margin: 10px 0;">
 
 ```yaml
 network:
@@ -237,7 +267,11 @@ network:
           - 10.10.20.1
 ```
 
+</div>
+
 ### Archivo `/etc/hosts`
+
+<div style="background-color: #1e1e1e; border-radius: 8px; padding: 15px; margin: 10px 0;">
 
 ```hosts
 127.0.0.1       localhost
@@ -252,3 +286,5 @@ ff02::2         ip6-allrouters
 10.10.10.1      R-NCC R
 10.10.10.10     F-NCC
 ```
+
+</div>
