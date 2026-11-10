@@ -21,17 +21,17 @@ realitzades s'aniran documentant progressivament en aquest repositori.
 
 ## 2. Objectius
 
--   [ ] Dissenyar i documentar l'arquitectura de la infraestructura.
--   [ ] Configurar un router amb les xarxes DMZ, intranet i NAT.
--   [ ] Desplegar i configurar els serveis requerits.
--   [ ] Crear una base de dades MySQL i importar-hi les dades
-    d'equipaments educatius de Barcelona.
--   [ ] Preparar una petita aplicació que mostri les dades
-    emmagatzemades.
--   [ ] Configurar l'accés al repositori Git mitjançant claus SSH.
--   [ ] Documentar el flux de treball Git i el desplegament.
--   [ ] Definir i executar proves de connectivitat i funcionament.
--   [ ] Recollir possibles millores per a una futura versió.
+- Dissenyar i documentar l'arquitectura de la infraestructura.
+- Configurar un router amb les xarxes DMZ, intranet i NAT.
+- Desplegar i configurar els serveis requerits.
+- Crear una base de dades MySQL i importar-hi les dades
+- d'equipaments educatius de Barcelona.
+- Preparar una petita aplicació que mostri les dades
+  emmagatzemades.
+- Configurar l'accés al repositori Git mitjançant claus SSH.
+- Documentar el flux de treball Git i el desplegament.
+- Definir i executar proves de connectivitat i funcionament.
+- Recollir possibles millores per a una futura versió.
 
 ## 3. Arquitectura prevista
 
