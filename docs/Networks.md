@@ -20,7 +20,10 @@ El archivo `/etc/network/interfaces` del nodo Proxmox administra la interfaz WAN
 
 ### Archivo `/etc/network/interfaces`
 
-<pre style="background-color: #2d2d2d !important; color: #f8f9fa; padding: 15px; border-radius: 8px; overflow-x: auto;"><code>auto lo
+<div style="background-color: #1e1e1e; border-radius: 8px; padding: 15px; margin: 10px 0;">
+
+```bash
+auto lo
 iface lo inet loopback
 
 iface enp1s0 inet manual
@@ -63,7 +66,10 @@ iface vmbr2 inet static
 	post-down iptables -t nat -D POSTROUTING -o vmbr2 -j MASQUERADE
 	mtu 1446
 
-source /etc/network/interfaces.d/*</code></pre>
+source /etc/network/interfaces.d/*
+```
+
+</div>
 
 ---
 
@@ -75,7 +81,10 @@ El nodo `R-NCC` actúa como la pasarela de enrutamiento centralizada entre el se
 
 ### Archivo `/etc/netplan/50-cloud-init.yaml`
 
-<pre style="background-color: #2d2d2d !important; color: #f8f9fa; padding: 15px; border-radius: 8px; overflow-x: auto;"><code>network:
+<div style="background-color: #1e1e1e; border-radius: 8px; padding: 15px; margin: 10px 0;">
+
+```yaml
+network:
   version: 2
   renderer: networkd
   ethernets:
@@ -88,11 +97,17 @@ El nodo `R-NCC` actúa como la pasarela de enrutamiento centralizada entre el se
     eth2:
       dhcp4: no
       addresses:
-        - 10.10.20.1/24</code></pre>
+        - 10.10.20.1/24
+```
+
+</div>
 
 ### Archivo `/etc/hosts`
 
-<pre style="background-color: #2d2d2d !important; color: #f8f9fa; padding: 15px; border-radius: 8px; overflow-x: auto;"><code>127.0.0.1       localhost
+<div style="background-color: #1e1e1e; border-radius: 8px; padding: 15px; margin: 10px 0;">
+
+```hosts
+127.0.0.1       localhost
 ::1             localhost ip6-localhost ip6-loopback
 ff02::1         ip6-allnodes
 ff02::2         ip6-allrouters
@@ -106,7 +121,10 @@ ff02::2         ip6-allrouters
 10.10.10.20     W-NCC
 10.10.20.10     B-NCC
 10.10.20.50     CLI-LINUX
-10.10.20.51     CLI-WIN</code></pre>
+10.10.20.51     CLI-WIN
+```
+
+</div>
 
 ---
 
@@ -118,7 +136,10 @@ Ubicado en la DMZ (`10.10.10.20`), el contenedor `WEB-NCC` aloja los servicios d
 
 ### Archivo `/etc/netplan/50-cloud-init.yaml`
 
-<pre style="background-color: #2d2d2d !important; color: #f8f9fa; padding: 15px; border-radius: 8px; overflow-x: auto;"><code>network:
+<div style="background-color: #1e1e1e; border-radius: 8px; padding: 15px; margin: 10px 0;">
+
+```yaml
+network:
   version: 2
   renderer: networkd
   ethernets:
@@ -133,11 +154,17 @@ Ubicado en la DMZ (`10.10.10.20`), el contenedor `WEB-NCC` aloja los servicios d
           via: 10.10.10.1
       nameservers:
         addresses:
-          - 10.10.10.1</code></pre>
+          - 10.10.10.1
+```
+
+</div>
 
 ### Archivo `/etc/hosts`
 
-<pre style="background-color: #2d2d2d !important; color: #f8f9fa; padding: 15px; border-radius: 8px; overflow-x: auto;"><code>127.0.0.1       localhost
+<div style="background-color: #1e1e1e; border-radius: 8px; padding: 15px; margin: 10px 0;">
+
+```hosts
+127.0.0.1       localhost
 ::1             localhost ip6-localhost ip6-loopback
 ff02::1         ip6-allnodes
 ff02::2         ip6-allrouters
@@ -151,7 +178,10 @@ ff02::2         ip6-allrouters
 10.10.10.20     WEB-NCC W-NCC educacion.local
 10.10.20.10     B-NCC mysql_bcn_db
 10.10.20.50     CLI-LINUX
-10.10.20.51     CLI-WIN</code></pre>
+10.10.20.51     CLI-WIN
+```
+
+</div>
 
 ---
 
@@ -163,7 +193,10 @@ Ubicado en la zona DMZ (`10.10.10.10`), este contenedor proporciona el servicio 
 
 ### Archivo `/etc/netplan/50-cloud-init.yaml`
 
-<pre style="background-color: #2d2d2d !important; color: #f8f9fa; padding: 15px; border-radius: 8px; overflow-x: auto;"><code>network:
+<div style="background-color: #1e1e1e; border-radius: 8px; padding: 15px; margin: 10px 0;">
+
+```yaml
+network:
   version: 2
   renderer: networkd
   ethernets:
@@ -178,11 +211,17 @@ Ubicado en la zona DMZ (`10.10.10.10`), este contenedor proporciona el servicio 
           via: 10.10.10.1
       nameservers:
         addresses:
-          - 10.10.10.1</code></pre>
+          - 10.10.10.1
+```
+
+</div>
 
 ### Archivo `/etc/hosts`
 
-<pre style="background-color: #2d2d2d !important; color: #f8f9fa; padding: 15px; border-radius: 8px; overflow-x: auto;"><code>127.0.0.1       localhost
+<div style="background-color: #1e1e1e; border-radius: 8px; padding: 15px; margin: 10px 0;">
+
+```hosts
+127.0.0.1       localhost
 ::1             localhost ip6-localhost ip6-loopback
 ff02::1         ip6-allnodes
 ff02::2         ip6-allrouters
@@ -192,7 +231,10 @@ ff02::2         ip6-allrouters
 # --- END PVE ---
 
 10.10.10.1      R-NCC R
-10.10.10.10     F-NCC</code></pre>
+10.10.10.10     F-NCC
+```
+
+</div>
 
 ---
 
@@ -204,7 +246,10 @@ Alojado de forma aislada dentro de la subred Intranet (`10.10.20.10`), este cont
 
 ### Archivo `/etc/netplan/50-cloud-init.yaml`
 
-<pre style="background-color: #2d2d2d !important; color: #f8f9fa; padding: 15px; border-radius: 8px; overflow-x: auto;"><code>network:
+<div style="background-color: #1e1e1e; border-radius: 8px; padding: 15px; margin: 10px 0;">
+
+```yaml
+network:
   version: 2
   renderer: networkd
   ethernets:
@@ -219,11 +264,17 @@ Alojado de forma aislada dentro de la subred Intranet (`10.10.20.10`), este cont
           via: 10.10.20.1
       nameservers:
         addresses:
-          - 10.10.20.1</code></pre>
+          - 10.10.20.1
+```
+
+</div>
 
 ### Archivo `/etc/hosts`
 
-<pre style="background-color: #2d2d2d !important; color: #f8f9fa; padding: 15px; border-radius: 8px; overflow-x: auto;"><code>127.0.0.1       localhost
+<div style="background-color: #1e1e1e; border-radius: 8px; padding: 15px; margin: 10px 0;">
+
+```hosts
+127.0.0.1       localhost
 ::1             localhost ip6-localhost ip6-loopback
 ff02::1         ip6-allnodes
 ff02::2         ip6-allrouters
@@ -233,4 +284,7 @@ ff02::2         ip6-allrouters
 # --- END PVE ---
 
 10.10.10.1      R-NCC R
-10.10.10.10     F-NCC</code></pre>
+10.10.10.10     F-NCC
+```
+
+</div>
