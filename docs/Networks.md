@@ -1,6 +1,6 @@
 # Documentación Técnica de Redes (Networks)
 
-Este apartado detalla la arquitectura de red centralizada en el hipervisor **Proxmox VE (`pvexx`)**, la topología de subredes (DMZ, Intranet y Red de Clientes/VPN) y la configuración paso a paso de cada nodo, contenedor y cliente de la infraestructura.
+Este apartado detalta la arquitectura de red centralizada en el hipervisor **Proxmox VE (`pvexx`)**, la topología de subredes (DMZ, Intranet y Red de Clientes/VPN) y la configuración paso a paso de cada nodo, contenedor y cliente de la infraestructura.
 
 ---
 
@@ -74,3 +74,199 @@ iface vmbr2 inet static
 	post-down iptables -t nat -D POSTROUTING -o vmbr0 -j MASQUERADE
 
 source /etc/network/interfaces.d/*
+```
+
+### Servidor DNS & DHCP (`/etc/dnsmasq.conf`)
+
+El servicio `dnsmasq` en Proxmox gestiona las peticiones en las interfaces `enp2s0`, `vmbr2` y `vmbr1`. Redirige las consultas externas a los DNS públicos (`1.1.1.1`, `8.8.8.8`), resuelve de manera autoritativa los dominios locales `educacion.local` y `www.educacion.local` a la IP `10.10.10.20`, y entrega por DHCP direccionamiento dinámico en la red `vmbr2` inyectando la ruta estática a `10.10.10.0/24` a través de la **Opción DHCP 121**.
+
+### Archivo `/etc/dnsmasq.conf`
+
+```ini
+# ===================================================================
+# CONFIGURACIÓN DE INTERFACES Y ESCUCHA
+# ===================================================================
+# Escuchar en el bridge de clientes (vmbr2), el bridge interno (vmbr1) y loopback
+
+interface=enp2s0
+interface=vmbr2
+interface=vmbr1
+#listen-address=127.0.0.1,192.168.2.1,10.10.10.1
+#bind-interfaces
+
+# ===================================================================
+# FILTRADO Y SEGURIDAD DE CONSULTAS DNS
+# ===================================================================
+# No reenviar nombres sin punto o dominio (ej. "host" en lugar de "host.local")
+domain-needed
+
+# No reenviar peticiones de búsqueda inversa para rangos IP privados no asignados
+bogus-priv
+
+# Ignorar el archivo /etc/resolv.conf local para evitar bucles de resolución
+no-resolv
+no-poll
+
+# ===================================================================
+# REENVIADORES EXTERNOS (SERVIDORES DNS PARA SALIDA A INTERNET)
+# ===================================================================
+server=1.1.1.1
+server=8.8.8.8
+
+# ===================================================================
+# DOMINIO LOCAL Y MAPEADO DE HOSTS
+# ===================================================================
+# Definir el dominio local autoritativo
+domain=educacion.local
+local=/educacion.local/
+expand-hosts
+
+# Mapeado directo del dominio local al servidor web WEB-NCC
+address=/educacion.local/10.10.10.20
+address=/www.educacion.local/10.10.10.20
+
+# Leer también las entradas estáticas del archivo /etc/hosts de Proxmox
+addn-hosts=/etc/hosts
+
+# ===================================================================
+# CONFIGURACIÓN DHCP (OPCIONAL / SI EL CLIENTE REQUIERE IP DINÁMICA)
+# ===================================================================
+# Descomentar si se desea repartir direccionamiento en la red de clientes:
+# dhcp-range=192.168.2.50,192.168.2.150,255.255.255.0,12h
+# dhcp-option=option:router,192.168.2.1
+# dhcp-option=option:dns-server,192.168.2.1
+
+# ===================================================================
+# CACHÉ Y REGISTROS (LOGS)
+# ===================================================================
+cache-size=1000
+log-queries
+log-facility=/var/log/dnsmasq.log
+except-interface=lo
+
+# Habilitar DHCP para la interfaz del bridge de clientes
+dhcp-range=interface:vmbr2,192.168.2.50,192.168.2.150,255.255.255.0,12h
+
+# Opciones DHCP entregadas al cliente
+dhcp-option=option:router,192.168.2.1
+dhcp-option=option:dns-server,192.168.2.1
+dhcp-option=option:domain-name,"educacion.local"
+
+# Entregar automáticamente la ruta a 10.10.10.0/24 usando 192.168.2.1 como pasarela
+dhcp-option=121,10.10.10.0/24,192.168.2.1
+```
+
+---
+
+## 3. Servidor Web (`WEB-NCC`)
+
+### Descripción de la Configuración
+
+Ubicado en la DMZ (`10.10.10.20`), el contenedor `WEB-NCC` obtiene IP por DHCP en su interfaz `eth0` y tiene asignada la IP estática `10.10.10.20/24` en `eth1`. Cuenta con rutas declaradas explícitamente para responder a las subredes de Intranet (`10.10.20.0/24`) y Clientes/VPN (`192.168.2.0/24`) pasando por el nodo Proxmox (`10.10.10.1`).
+
+### Archivo `/etc/netplan/50-cloud-init.yaml`
+
+```yaml
+network:
+  version: 2
+  ethernets:
+    eth0:
+      dhcp4: true
+    eth1:
+      addresses:
+        - 10.10.10.20/24
+      routes:
+        - to: 10.10.20.0/24
+          via: 10.10.10.1
+        - to: 192.168.2.0/24
+          via: 10.10.10.1
+```
+
+---
+
+## 4. Servidor FTP (`Servidor-FTP` / `F-NCC`)
+
+### Descripción de la Configuración
+
+Contenedor alojado en la subred de servidores (`10.10.10.10/24`). Mantiene en la interfaz `eth1` el direccionamiento estático y declara las rutas hacia `10.10.20.0/24` y `192.168.2.0/24` a través de Proxmox (`10.10.10.1`).
+
+### Archivo `/etc/netplan/50-cloud-init.yaml`
+
+```yaml
+network:
+  version: 2
+  ethernets:
+    eth0:
+      dhcp4: true
+    eth1:
+      addresses:
+        - 10.10.10.10/24
+      routes:
+        - to: 10.10.20.0/24
+          via: 10.10.10.1
+        - to: 192.168.2.0/24
+          via: 10.10.10.1
+```
+
+---
+
+## 5. Servidor de Base de Datos (`B-NCC`)
+
+### Descripción de la Configuración
+
+Alojado en el segmento Intranet (`10.10.20.10/24`) en la interfaz `net1`. Configura su salida predeterminada (`default`) y su servidor de nombres apuntando al nodo Proxmox (`10.10.20.1`).
+
+### Archivo `/etc/netplan/50-cloud-init.yaml`
+
+```yaml
+network:
+  version: 2
+  ethernets:
+    net0:
+      dhcp4: true
+    net1:
+      dhcp4: no
+      addresses:
+        - 10.10.20.10/24
+      routes:
+        - to: default
+          via: 10.10.20.1
+      nameservers:
+        addresses:
+          - 10.10.20.1
+```
+
+---
+
+## 6. Cliente de Gestión (`CLI-LINUX` / `isard@ubuntu`)
+
+### Descripción de la Configuración
+
+El cliente obtiene la IP dinámica en su interfaz `enp3s0` asignada por `dnsmasq` (`192.168.2.111`). Al conectarse, la **Opción DHCP 121** o la configuración local de Netplan le inyectan automáticamente la ruta estática para alcanzar los servidores internos `10.10.10.0/24` utilizando Proxmox (`192.168.2.1`) como pasarela.
+
+### Archivo `/etc/netplan/01-netcfg.yaml`
+
+```yaml
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp3s0:
+      dhcp4: true
+      routes:
+        - to: 10.10.10.0/24
+          via: 192.168.2.1
+```
+
+---
+
+## 7. Enrutamiento y Acceso desde la VPN
+
+### Funcionamiento del Tráfico VPN
+
+El acceso remoto mediante la plataforma IsardVDI introduce la conexión del cliente a través de la interfaz VPN `enp2s0` de Proxmox. El flujo del tráfico funciona de la siguiente manera:
+
+1. **Reenvío de Paquetes (`iptables FORWARD`):** Las reglas de Proxmox autorizan el paso de datos entre `enp2s0` y la red de servidores `vmbr1` (`10.10.10.0/24`).
+2. **Respuesta de Servidores:** Los contenedores `WEB-NCC` (`10.10.10.20`) y `F-NCC` (`10.10.10.10`) cuentan con rutas específicas configuradas en Netplan que envían las respuestas destinadas a `192.168.2.0/24` a través de Proxmox (`10.10.10.1`).
+3. **Traducción de Red (`MASQUERADE`):** Proxmox enmascara el tráfico para asegurar la transmisión de paquetes sobre los puentes locales y la salida a Internet por `vmbr0`.
+4. **Resolución de Nombres DNS:** `dnsmasq` responde las peticiones DNS sobre la interfaz VPN `enp2s0`, resolviendo `educacion.local` a `10.10.10.20` de forma directa sin requerir edición del archivo `/etc/hosts` en los clientes.
