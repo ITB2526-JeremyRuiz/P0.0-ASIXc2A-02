@@ -196,11 +196,3 @@ print(f"¡Proceso completado! Se han vuelto a importar {count} registros con cod
 cursor.close()
 conn.close()
 ```
-
----
-
-        }
-    </script>
-</body>
-</html>
-```
