@@ -18,6 +18,10 @@ La documentació es manté progressivament a partir de les tasques realitzades i
 - [Sprints](docs/sprints/README.md)
 - [Inventari inicial de màquines](docs/infrastructure/machines.md)
 - [Procediment inicial de recuperació de Proxmox](docs/infrastructure/proxmox-recovery.md)
+- [Guia d'administració tècnica](docs/admin-guide/README.md)
+- [Guia d'ús per al client](docs/user-guide/README.md)
+- [Planificació i recursos](docs/project/planning.md)
+- [Registre de riscos i contingència](docs/project/risks.md)
 - [Relació provisional amb els resultats d'aprenentatge](docs/evaluation/ra-mapping.md)
 - [Índex d'evidències](evidence/README.md)
 
