@@ -27,14 +27,14 @@ La documentació es manté progressivament a partir de les tasques realitzades i
 
 ## Objectius del projecte
 
-- [ ] Dissenyar i documentar l'arquitectura de la infraestructura.
-- [ ] Definir les xarxes, l'adreçament IP i l'encaminament.
-- [ ] Desplegar i configurar els serveis requerits (web, SSH, base de dades, DHCP, DNS i FTP, segons el disseny aprovat).
-- [ ] Importar a MySQL les dades d'equipaments educatius de Barcelona.
-- [ ] Preparar una aplicació que consulti les dades emmagatzemades.
-- [ ] Documentar el desplegament, les proves i la recuperació de les màquines i serveis.
-- [ ] Mantenir el seguiment dels sprints, les incidències i les decisions tècniques.
-- [ ] Relacionar les evidències amb els requisits i els resultats d'aprenentatge.
+- Dissenyar i documentar l'arquitectura de la infraestructura.
+- Definir les xarxes, l'adreçament IP i l'encaminament.
+- Desplegar i configurar els serveis requerits (web, SSH, base de dades, DHCP, DNS i FTP, segons el disseny aprovat).
+- Importar a MySQL les dades d'equipaments educatius de Barcelona.
+- Preparar una aplicació que consulti les dades emmagatzemades.
+- Documentar el desplegament, les proves i la recuperació de les màquines i serveis.
+- Mantenir el seguiment dels sprints, les incidències i les decisions tècniques.
+- Relacionar les evidències amb els requisits i els resultats d'aprenentatge.
 
 ## Arquitectura prevista
 
