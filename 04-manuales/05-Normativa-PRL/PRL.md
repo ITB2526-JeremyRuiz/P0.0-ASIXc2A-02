@@ -1,0 +1,28 @@
+# Plan de Prevención de Riesgos Laborales (PRL) y Matriz de Riesgos Técnicos
+
+Este documento identifica los riesgos laborales asociados al desarrollo, despliegue y administración de sistemas informáticos del proyecto, así como los riesgos técnicos de la infraestructura, definiendo medidas preventivas concretas, recursos necesarios y responsables conforme a la **Ley 31/1995 de Prevención de Riesgos Laborales** y el **RD 488/1997 sobre Pantallas de Visualización de Datos (PVD)**.
+
+---
+
+## 1. Evaluación de Riesgos Laborales (Puestos Informáticos y Sala de Servidores)
+
+| Código | Riesgo Laboral Identificado | Factores de Riesgo | Probabilidad / Impacto | Medidas Preventivas y Recursos Necesarios | Responsable |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **PRL-01** | **Trastornos musculoesqueléticos** (cervicalgias, dorsalgias, lumbalgias, síndrome del túnel carpiano). | Jornadas prolongadas de configuración y programación frente a ordenadores en posturas estáticas o mobiliario no regulado. | Media / Alto | • Sillas ergonómicas con soporte lumbar y altura regulable.<br>• Borde superior del monitor situado a la altura de los ojos y a una distancia de 45–60 cm.<br>• Teclado y ratón alineados permitiendo apoyar los antebrazos.<br>• Pausas activas de 5–10 minutos cada 60–90 minutos de trabajo continuo. | Todo el equipo técnico (Ivan y Jeremy) |
+| **PRL-02** | **Fatiga visual y ocular** (sequedad ocular, irritación, visión borrosa, cefaleas). | Deslumbramientos, reflejos en pantalla, contraste inadecuado en consolas SSH o iluminación deficiente. | Media / Medio | • Ubicar pantallas perpendiculares a ventanas para evitar reflejos directos.<br>• Mantener iluminación ambiental uniforme entre 300 y 500 lux.<br>• Configurar temas de terminal legibles y activar filtros de luz azul.<br>• Aplicar la regla 20-20-20 (enfocar a 6 metros durante 20 segundos cada 20 minutos). | Todo el equipo técnico |
+| **PRL-03** | **Contactos eléctricos directos e indirectos** en racks, SAI y puestos de trabajo. | Manipulación de cableado de alimentación sin desconexión, sobrecarga de regletas o ausencia de puesta a tierra. | Baja / Muy Alto | • Comprobar que racks, servidores y puestos cuentan con toma de tierra y protección diferencial.<br>• Prohibido conectar regletas en cascada o manipular fuentes de alimentación abiertas.<br>• Desconectar la alimentación antes de intervenir físicamente en hardware. | Administrador de Infraestructura |
+| **PRL-04** | **Caídas al mismo nivel y tropiezos** en zonas de paso y salas técnicas. | Cableado de red (Ethernet) o alimentación suelto por el suelo en puestos de trabajo o entre bastidores. | Baja / Medio | • Canalización y sujeción mediante bridas y guías para todo el cableado estructurado.<br>• Mantener despejadas las vías de tránsito y salidas de emergencia. | Equipo de Sistemas |
+| **PRL-05** | **Estrés térmico y ruido acústico** en salas de servidores (CPD). | Disipación continua de calor de servidores y ventilación forzada en espacios cerrados. | Baja / Medio | • Mantener climatización del CPD entre 18 °C y 24 °C.<br>• Priorizar la administración remota por SSH y consola web de Proxmox, limitando la estancia física en el CPD. | Administrador de Sistemas |
+| **PRL-06** | **Fatiga mental y estrés operativo** ante incidencias críticas. | Resolución de fallos de conectividad o servicios bajo plazos de entrega ajustados. | Media / Medio | • Planificación modular por Sprints en ProofHub (`P0.0-ASIXc2gC-Gnn`).<br>• Distribución equilibrada de tareas y procedimientos documentados de recuperación rápida. | Coordinador de Sprint |
+
+---
+
+## 2. Matriz de Riesgos Técnicos y Plan de Contingencia
+
+| ID | Riesgo Técnico | Probabilidad | Impacto | Medidas de Prevención | Protocolo de Respuesta / Contingencia | Responsable |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **RT-01** | **Pérdida de conectividad VPN/Clientes hacia subredes internas** tras reiniciar Proxmox. | Media | Alto | Persistir reglas `iptables` (`DNAT`, `FORWARD`, `MASQUERADE`, `TCPMSS`) y alias `vmbr1:0` (`10.10.20.1`) en `/etc/network/interfaces`; fijar `net.ipv4.ip_forward=1` en `/etc/sysctl.conf`. | Ejecutar `ifreload -a`, verificar `sysctl net.ipv4.ip_forward` y renovar rutas en clientes (`ipconfig /renew`). | Admin. Redes |
+| **RT-02** | **Bloqueo de tráfico DHCP en contenedores por seguridad de red (IsardVDI)** (*Anti-MAC Spoofing*). | Alta (ocurrido) | Alto | Centralizar `dnsmasq` (DHCP/DNS) y el enrutamiento en el hipervisor Proxmox (`vmbr2` / `enp3s0`), retirando `R-NCC`. | Auditar paquetes con `tcpdump -ni enp3s0 port 67 or port 68` y mantener `dnsmasq` activo en `pvexx`. | Admin. Redes |
+| **RT-03** | **Corrupción de caracteres (*mojibake*) o caída de MySQL (`B-NCC`)**. | Baja | Muy Alto | Volumen Docker persistente `db_data`, script `generar_sql.py` (UTF-16 LE a `utf8mb4`) y respaldo `inserts.sql`. | Levantar contenedor (`docker compose up -d`), validar conteo (2.710 filas) y restaurar volcado SQL si procede. | Admin. BBDD |
+| **RT-04** | **Ataques de fuerza bruta o inyección SQL sobre `educacion.local`**. | Media | Alto | *Overlay* `ppolicy` en OpenLDAP (bloqueo automático de 15 min tras 3 fallos) y consultas preparadas (`mysqli::prepare`). | Desbloqueo inmediato desde el panel web con usuario del grupo `admins` o mediante `ldapmodify`. | Admin. Seguridad |
+| **RT-05** | **Fallo o corrupción de un contenedor LXC en Proxmox**. | Baja | Alto | Snapshots previos a cambios (`pct snapshot`) y copias programadas `vzdump` en almacenamiento local. | Ejecutar `pct rollback <ID> <SNAPSHOT>` o restaurar copia `vzdump` y verificar servicios. | Admin. Sistemas |
