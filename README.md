@@ -25,10 +25,11 @@ Este repositorio contiene la documentación técnica, arquitectónica, normativa
 * [03-configuracion-ldap.md](03-servicios/03-configuracion-ldap.md) — Despliegue de `LDAP-NCC` (OpenLDAP `dc=educacion,dc=local`), política `ppolicy`, LAM e integración completa en PHP.
 * [configuracion-servidor-BBDD.md](03-servicios/configuracion-servidor-BBDD.md) — Despliegue de `B-NCC` (`MySQL 8.0` en Docker), esquema `init.sql` y limpieza UTF-16 LE BOM a `utf8mb4` (2.710 registros).
 
-### 4. `04-manuales/` — Manuales de Usuario y Normativa PRL 
+### 4. `04-manuales/` — Manuales de Usuario
 * [manual-cliente.md](04-manuales/manual-cliente.md) — Manual de conexión LAN (DHCP Opción 121) y VPN, guía funcional del portal web, acceso FTP y troubleshooting.
-* [05-Normativa-PRL/PRL.md](04-manuales/05-Normativa-PRL/PRL.md) — Plan de Prevención de Riesgos Laborales (PVD, eléctrico, cableado, CPD) y matriz de riesgos técnicos.
-
+  
+### 5. `05-Normativa-PRL/` — Manuales de Usuario y Normativa PRL
+* [05-Normativa-PRL/PRL.md](05-Normativa-PRL/PRL.md) — Plan de Prevención de Riesgos Laborales (PVD, eléctrico, cableado, CPD) y matriz de riesgos técnicos.
 ---
 
 ## Mapa de Direccionamiento Consolidado
