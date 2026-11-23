@@ -2,8 +2,7 @@
 
 * **Repositorio:** `P0.0-ASIXc2A-02`
 * **Autores:** Ivan y Jeremy
-* **Ciclo Formativo:** Administración de Sistemas Informáticos en Red (ASIX — Módulo 0379)
-* **Gestión de Proyecto (ProofHub):** `P0.0-ASIXc2gC-Gnn` (3 Sprints · 30 horas)
+* **Ciclo Formativo:** Administración de Sistemas Informáticos en Red Y Ciberseguridad (ASIXc — Módulo 0379)
 * **Plataforma de Despliegue:** Proxmox VE (`pvexx`) sobre IsardVDI (encapsulación VXLAN · MTU 1446)
 
 Este repositorio contiene la documentación técnica, arquitectónica, normativa y de usuario del proyecto **Educación Barcelona**. La solución despliega una infraestructura segmentada en **DMZ**, **Intranet** y **Red de Clientes/VPN** que da soporte a una aplicación web CRUD con autenticación centralizada **OpenLDAP (`ppolicy`)** sobre el catálogo oficial de equipamientos educativos del Ayuntamiento de Barcelona (**2.710 registros**).
