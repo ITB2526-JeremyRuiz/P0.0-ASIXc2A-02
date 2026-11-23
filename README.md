@@ -11,21 +11,21 @@ Este repositorio contiene la documentación técnica, arquitectónica, normativa
 
 ## Estructura del Repositorio e Índice de Documentación
 
-### 1. `01-proyecto/` — Estudio Previo, Planificación e Inventario (RA1 / RA2 / RA3)
+### 1. `01-proyecto/` — Estudio Previo, Planificación e Inventario
 * [01-analisis-y-justificacion.md](01-proyecto/01-analisis-y-justificacion.md) — Planteamiento del problema, estudio de mercado y justificación de Proxmox VE, Docker, OpenLDAP y MySQL.
 * [02-planificacion-e-inventario.md](01-proyecto/02-planificacion-e-inventario.md) — Planificación por Sprints en ProofHub, control de versiones Git, estándar `bchecker` e inventario real de nodos.
 
-### 2. `02-Redes-y-seguridad/` — Arquitectura de Red, Seguridad y Contingencia (RA2 / RA3)
+### 2. `02-Redes-y-seguridad/` — Arquitectura de Red, Seguridad y Contingencia 
 * [01-arquitectura-red.md](02-Redes-y-seguridad/01-arquitectura-red.md) — Topología segmentada, evolución desde `R-NCC` hacia Proxmox `pvexx`, reglas persistentes `iptables`, DNS/DHCP (`dnsmasq`) y Netplan.
 * [Contigencia-y-pruebas.md](02-Redes-y-seguridad/Contigencia-y-pruebas.md) — Protocolos de copias de seguridad (`vzdump` y `mysqldump`), recuperación ante desastres y juego de pruebas integral.
 
-### 3. `03-servicios/` — Despliegue de Servicios e Infraestructura (RA2 / RA3)
+### 3. `03-servicios/` — Despliegue de Servicios e Infraestructura 
 * [01-configuracion-servidor-web.md](03-servicios/01-configuracion-servidor-web.md) — Despliegue de `WEB-NCC` (`Nginx` + `PHP 8.2-FPM`), arquitectura CRUD, seguridad SQLi/XSS y script `deploy.sh`.
 * [02-configuracion-servidor-ftp.md](03-servicios/02-configuracion-servidor-ftp.md) — Despliegue de `F-NCC` (`ProFTPD` en Docker Compose), modo pasivo y usuario global `bchecker`.
 * [03-configuracion-ldap.md](03-servicios/03-configuracion-ldap.md) — Despliegue de `LDAP-NCC` (OpenLDAP `dc=educacion,dc=local`), política `ppolicy`, LAM e integración completa en PHP.
 * [configuracion-servidor-BBDD.md](03-servicios/configuracion-servidor-BBDD.md) — Despliegue de `B-NCC` (`MySQL 8.0` en Docker), esquema `init.sql` y limpieza UTF-16 LE BOM a `utf8mb4` (2.710 registros).
 
-### 4. `04-manuales/` — Manuales de Usuario y Normativa PRL (RA3)
+### 4. `04-manuales/` — Manuales de Usuario y Normativa PRL 
 * [manual-cliente.md](04-manuales/manual-cliente.md) — Manual de conexión LAN (DHCP Opción 121) y VPN, guía funcional del portal web, acceso FTP y troubleshooting.
 * [05-Normativa-PRL/PRL.md](04-manuales/05-Normativa-PRL/PRL.md) — Plan de Prevención de Riesgos Laborales (PVD, eléctrico, cableado, CPD) y matriz de riesgos técnicos.
 
