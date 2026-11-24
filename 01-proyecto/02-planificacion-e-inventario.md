@@ -109,15 +109,15 @@ Registro sesión por sesión del trabajo de **Ivan y Jeremy**, con la **captura 
 
 | Fecha | Sprint | Resumen | Horas | Evidencia |
 | :--- | :---: | :--- | :---: | :--- |
-| 07/10/2026 | 1 | Lluvia de ideas y reparto de máquinas. Despliegue de Proxmox y de los clientes Windows y Ubuntu. Creación del repositorio GitHub. | _completar_ | [Inicio](../evidencias/proofhub/2026-10-07_inicio.png) · [Fin](../evidencias/proofhub/2026-10-07_fin.png) |
-| 13/10/2026 | 1 | Migración a la plataforma «Isard Nuvulet» y repetición del despliegue. Decisión de crear un entorno de pruebas. | _completar_ | [Tablero](../evidencias/proofhub/2026-10-13_tablero.png) |
-| 14/10/2026 | 1 | Sin avance: charla educativa. | — | [Tablero](../evidencias/proofhub/2026-10-13_tablero.png) |
-| 20/10/2026 | 1 | Entorno de pruebas con Docker: base de datos MySQL, generador CSV → SQL y configuración de Docker. | _completar_ | [Inicio](../evidencias/proofhub/2026-10-20_inicio.png) · [Fin](../evidencias/proofhub/2026-10-20_fin.png) |
-| 21/10/2026 | 1 | Servidor web y desarrollo de la web de pruebas (CRUD sobre la base de datos). Inicio de la documentación. | _completar_ | [Inicio](../evidencias/proofhub/2026-10-20_fin.png) · [Fin](../evidencias/proofhub/2026-10-21_fin.png) |
-| 28/10/2026 | 2 | Retrospectiva del sprint 1 y organización de la documentación en GitHub. | _completar_ | [Tablero](../evidencias/proofhub/2026-10-28_tablero.png) |
-| 03/11/2026 | 2 | Documentación en GitHub: carpetas por apartado, con imágenes. | _completar_ | [Tablero](../evidencias/proofhub/2026-11-03_tablero.png) |
-| 04/11/2026 | 2 | Creación de los contenedores y de la configuración de cada servidor. | _completar_ | [Inicio](../evidencias/proofhub/2026-11-04_inicio.png) · [Fin](../evidencias/proofhub/2026-11-04_fin.png) |
-| 10/11/2026 | 2 | Diagnóstico del fallo de DHCP en el contenedor router: filtro *Anti-MAC Spoofing* de IsardVDI. | _completar_ | [Inicio](../evidencias/proofhub/2026-11-10_inicio.png) · [Fin](../evidencias/proofhub/2026-11-10_fin.png) |
+| 07/10/2026 | 1 | Lluvia de ideas y reparto de máquinas. Despliegue de Proxmox y de los clientes Windows y Ubuntu. Creación del repositorio GitHub. | _completar_ | [Inicio](evidencias/proofhub/2026-10-07_inicio.png) · [Fin](evidencias/proofhub/2026-10-07_fin.png) |
+| 13/10/2026 | 1 | Migración a la plataforma «Isard Nuvulet» y repetición del despliegue. Decisión de crear un entorno de pruebas. | _completar_ | [Tablero](evidencias/proofhub/2026-10-13_tablero.png) |
+| 14/10/2026 | 1 | Sin avance: charla educativa. | — | [Tablero](evidencias/proofhub/2026-10-13_tablero.png) |
+| 20/10/2026 | 1 | Entorno de pruebas con Docker: base de datos MySQL, generador CSV → SQL y configuración de Docker. | _completar_ | [Inicio](evidencias/proofhub/2026-10-20_inicio.png) · [Fin](evidencias/proofhub/2026-10-20_fin.png) |
+| 21/10/2026 | 1 | Servidor web y desarrollo de la web de pruebas (CRUD sobre la base de datos). Inicio de la documentación. | _completar_ | [Inicio](evidencias/proofhub/2026-10-20_fin.png) · [Fin](evidencias/proofhub/2026-10-21_fin.png) |
+| 28/10/2026 | 2 | Retrospectiva del sprint 1 y organización de la documentación en GitHub. | _completar_ | [Tablero](evidencias/proofhub/2026-10-28_tablero.png) |
+| 03/11/2026 | 2 | Documentación en GitHub: carpetas por apartado, con imágenes. | _completar_ | [Tablero](evidencias/proofhub/2026-11-03_tablero.png) |
+| 04/11/2026 | 2 | Creación de los contenedores y de la configuración de cada servidor. | _completar_ | [Inicio](evidencias/proofhub/2026-11-04_inicio.png) · [Fin](evidencias/proofhub/2026-11-04_fin.png) |
+| 10/11/2026 | 2 | Diagnóstico del fallo de DHCP en el contenedor router: filtro *Anti-MAC Spoofing* de IsardVDI. | _completar_ | [Inicio](evidencias/proofhub/2026-11-10_inicio.png) · [Fin](evidencias/proofhub/2026-11-10_fin.png) |
 | 17/11/2026 | 3 | _Pendiente de redactar._ | _completar_ | _Pendiente_ |
 
 **Registro diario**
@@ -134,11 +134,11 @@ Registro sesión por sesión del trabajo de **Ivan y Jeremy**, con la **captura 
 
 *Inicio:*
 
-![Tablero ProofHub - Inicio](../evidencias/proofhub/2026-10-07_inicio.png)
+![Tablero ProofHub - Inicio](evidencias/proofhub/2026-10-07_inicio.png)
 
 *Fin:*
 
-![Tablero ProofHub - Fin](../evidencias/proofhub/2026-10-07_fin.png)
+![Tablero ProofHub - Fin](evidencias/proofhub/2026-10-07_fin.png)
 
 
 #### 13/10/2026 · Sprint 1
@@ -153,7 +153,7 @@ Registro sesión por sesión del trabajo de **Ivan y Jeremy**, con la **captura 
 
 *Tablero:*
 
-![Tablero ProofHub - Tablero](../evidencias/proofhub/2026-10-13_tablero.png)
+![Tablero ProofHub - Tablero](evidencias/proofhub/2026-10-13_tablero.png)
 
 *El tablero no cambia entre el inicio y el fin de la jornada.*
 
@@ -168,7 +168,7 @@ El objetivo era desplegar el entorno de pruebas en un contenedor, pero una **cha
 
 *Tablero:*
 
-![Tablero ProofHub - Tablero](../evidencias/proofhub/2026-10-13_tablero.png)
+![Tablero ProofHub - Tablero](evidencias/proofhub/2026-10-13_tablero.png)
 
 
 #### 20/10/2026 · Sprint 1
@@ -185,11 +185,11 @@ El objetivo era desplegar el entorno de pruebas en un contenedor, pero una **cha
 
 *Inicio:*
 
-![Tablero ProofHub - Inicio](../evidencias/proofhub/2026-10-20_inicio.png)
+![Tablero ProofHub - Inicio](evidencias/proofhub/2026-10-20_inicio.png)
 
 *Fin:*
 
-![Tablero ProofHub - Fin](../evidencias/proofhub/2026-10-20_fin.png)
+![Tablero ProofHub - Fin](evidencias/proofhub/2026-10-20_fin.png)
 
 
 #### 21/10/2026 · Sprint 1
@@ -204,11 +204,11 @@ El objetivo era desplegar el entorno de pruebas en un contenedor, pero una **cha
 
 *Inicio:*
 
-![Tablero ProofHub - Inicio](../evidencias/proofhub/2026-10-20_fin.png)
+![Tablero ProofHub - Inicio](evidencias/proofhub/2026-10-20_fin.png)
 
 *Fin:*
 
-![Tablero ProofHub - Fin](../evidencias/proofhub/2026-10-21_fin.png)
+![Tablero ProofHub - Fin](evidencias/proofhub/2026-10-21_fin.png)
 
 
 #### 28/10/2026 · Sprint 2
@@ -223,7 +223,7 @@ El objetivo era desplegar el entorno de pruebas en un contenedor, pero una **cha
 
 *Tablero:*
 
-![Tablero ProofHub - Tablero](../evidencias/proofhub/2026-10-28_tablero.png)
+![Tablero ProofHub - Tablero](evidencias/proofhub/2026-10-28_tablero.png)
 
 
 #### 03/11/2026 · Sprint 2
@@ -238,7 +238,7 @@ El objetivo era desplegar el entorno de pruebas en un contenedor, pero una **cha
 
 *Tablero:*
 
-![Tablero ProofHub - Tablero](../evidencias/proofhub/2026-11-03_tablero.png)
+![Tablero ProofHub - Tablero](evidencias/proofhub/2026-11-03_tablero.png)
 
 
 #### 04/11/2026 · Sprint 2
@@ -255,11 +255,11 @@ El objetivo era desplegar el entorno de pruebas en un contenedor, pero una **cha
 
 *Inicio:*
 
-![Tablero ProofHub - Inicio](../evidencias/proofhub/2026-11-04_inicio.png)
+![Tablero ProofHub - Inicio](evidencias/proofhub/2026-11-04_inicio.png)
 
 *Fin:*
 
-![Tablero ProofHub - Fin](../evidencias/proofhub/2026-11-04_fin.png)
+![Tablero ProofHub - Fin](evidencias/proofhub/2026-11-04_fin.png)
 
 
 #### 10/11/2026 · Sprint 2
@@ -276,11 +276,11 @@ El objetivo era desplegar el entorno de pruebas en un contenedor, pero una **cha
 
 *Inicio:*
 
-![Tablero ProofHub - Inicio](../evidencias/proofhub/2026-11-10_inicio.png)
+![Tablero ProofHub - Inicio](evidencias/proofhub/2026-11-10_inicio.png)
 
 *Fin:*
 
-![Tablero ProofHub - Fin](../evidencias/proofhub/2026-11-10_fin.png)
+![Tablero ProofHub - Fin](evidencias/proofhub/2026-11-10_fin.png)
 
 
 #### 17/11/2026 · Sprint 3
