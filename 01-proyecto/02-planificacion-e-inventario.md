@@ -118,7 +118,9 @@ Registro sesión por sesión del trabajo de **Ivan y Jeremy**, con la **captura 
 | 03/11/2026 | 2 | Documentación en GitHub: carpetas por apartado, con imágenes. | _completar_ | [Tablero](evidencias/proofhub/2026-11-03_tablero.png) |
 | 04/11/2026 | 2 | Creación de los contenedores y de la configuración de cada servidor. | _completar_ | [Inicio](evidencias/proofhub/2026-11-04_inicio.png) · [Fin](evidencias/proofhub/2026-11-04_fin.png) |
 | 10/11/2026 | 2 | Diagnóstico del fallo de DHCP en el contenedor router: filtro *Anti-MAC Spoofing* de IsardVDI. | _completar_ | [Inicio](evidencias/proofhub/2026-11-10_inicio.png) · [Fin](evidencias/proofhub/2026-11-10_fin.png) |
-| 17/11/2026 | 2 | Configuración y documentación del servicio LDAP. | _completar_ | Captura recibida; pendiente de subir a GitHub |\n| 18/11/2026 | 2 | Revisión y cierre del segundo sprint; feedback del profesor a partir de la rúbrica. | _completar_ | Rúbrica SP2 (documento entregado) |\n| 24/11/2026 | 3 | Continuación de la documentación técnica en Markdown, especialmente los servicios y la organización del repositorio. | _completar_ | Sin captura de ProofHub recibida |
+| 17/11/2026 | 2 | Configuración y documentación del servicio LDAP. | _completar_ | Captura recibida; pendiente de subir a GitHub |
+| 18/11/2026 | 2 | Revisión y cierre del segundo sprint; feedback del profesor a partir de la rúbrica. | _completar_ | Rúbrica SP2 (documento entregado) |
+| 24/11/2026 | 3 | Continuación de la documentación técnica en Markdown, especialmente los servicios y la organización del repositorio. | _completar_ | Sin captura de ProofHub recibida |
 
 **Registro diario**
 
@@ -283,11 +285,37 @@ El objetivo era desplegar el entorno de pruebas en un contenedor, pero una **cha
 ![Tablero ProofHub - Fin](evidencias/proofhub/2026-11-10_fin.png)
 
 
-#### 17/11/2026 · Sprint 3
+#### 17/11/2026 · Sprint 2
 
-<!-- COMPLETAR con lo realmente hecho ese día y adjuntar la captura del tablero. -->
+**Inicio.** El objetivo de la sesión es continuar con la puesta en marcha de los servicios pendientes y avanzar especialmente en el servicio de directorio LDAP. Se toma como referencia la configuración prevista para centralizar la autenticación de los usuarios del entorno.
 
-_Entrada pendiente de redactar._
+**Fin.** Se trabaja en el despliegue y configuración de **LDAP-NCC**, siguiendo la documentación técnica del servicio que se recoge en [03-configuracion-ldap.md](../03-servicios/03-configuracion-ldap.md). El trabajo del día se centra en dejar preparado el servicio de directorio y documentar su configuración para poder integrarlo con el portal web.
+
+**Tablero ProofHub.** La captura de la jornada muestra **18 tareas finalizadas**, **2 en curso** y **2 bloqueadas**. Entre las tareas en curso aparecen *Documentación en Markdown* y *Servicio LDAP*. Las tareas *Desplegar un servidor DNS* y *Desplegar un servidor DHCP* continúan en la columna de bloqueadas. El tablero también refleja como finalizadas, entre otras, las tareas de despliegue de SSH, FTP y creación de NAT.
+
+**Evidencia.** La captura de ProofHub de esta jornada se ha recibido y queda pendiente de incorporarla como archivo en `evidencias/proofhub/`.
+
+
+#### 18/11/2026 · Revisión y cierre del Sprint 2
+
+**Inicio.** La sesión se dedica a revisar el trabajo realizado durante el segundo sprint y comprobar su correspondencia con los criterios de evaluación. El objetivo es presentar el estado del proyecto, revisar los resultados y detectar qué apartados necesitan mejoras antes de continuar.
+
+**Fin.** Después de la revisión, el profesor Sergi indica que todavía hay aspectos que deben mejorarse según la rúbrica del Sprint 2. La devolución sirve para identificar tareas de mejora, especialmente en la profundidad del análisis y la justificación técnica, el seguimiento y las evidencias del trabajo, y la calidad y adaptación de la documentación técnica y de cliente. La rúbrica distingue estos aspectos dentro de RA1, RA2 y RA3, e incluye también la aplicación de tecnologías, la planificación, la ejecución de pruebas y las competencias de trabajo.
+
+Como resultado de la revisión, el equipo toma nota de las observaciones para incorporarlas a la documentación y reforzar los apartados que no alcanzan todavía el nivel esperado. La rúbrica entregada por el profesor se utiliza como referencia para orientar estas correcciones.
+
+**Evidencia.** Rúbrica de evaluación del Sprint 2 entregada por el profesor (documento de referencia; no es una captura de ProofHub).
+
+
+#### 24/11/2026 · Documentación del proyecto
+
+**Inicio.** El objetivo de la sesión es continuar con la documentación técnica en Markdown dentro del repositorio de GitHub. Se prioriza ordenar la información de los servicios que forman parte de la infraestructura y dejar una estructura clara que permita localizar las configuraciones y los procedimientos realizados.
+
+**Fin.** Se continúa ampliando y organizando la documentación de los servicios del proyecto. Se trabaja sobre los apartados técnicos del repositorio, manteniendo la separación por servicios y relacionando la documentación con la arquitectura general. Esta tarea da continuidad a la decisión tomada en la retrospectiva del primer sprint: mantener en GitHub un registro centralizado y estructurado del trabajo realizado.
+
+**Resultado de la jornada.** La documentación de servicios queda organizada en archivos Markdown independientes dentro de `03-servicios/`, junto con el resto de apartados del proyecto. Se seguirá completando y revisando la información técnica a medida que se validen los servicios y sus configuraciones.
+
+**Evidencia.** No se ha recibido una captura de ProofHub correspondiente a esta jornada.
 
 ### 1.7. Incidencias y decisiones relevantes
 
