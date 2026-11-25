@@ -118,7 +118,7 @@ Registro sesión por sesión del trabajo de **Ivan y Jeremy**, con la **captura 
 | 03/11/2026 | 2 | Documentación en GitHub: carpetas por apartado, con imágenes. | _completar_ | [Tablero](evidencias/proofhub/2026-11-03_tablero.png) |
 | 04/11/2026 | 2 | Creación de los contenedores y de la configuración de cada servidor. | _completar_ | [Inicio](evidencias/proofhub/2026-11-04_inicio.png) · [Fin](evidencias/proofhub/2026-11-04_fin.png) |
 | 10/11/2026 | 2 | Diagnóstico del fallo de DHCP en el contenedor router: filtro *Anti-MAC Spoofing* de IsardVDI. | _completar_ | [Inicio](evidencias/proofhub/2026-11-10_inicio.png) · [Fin](evidencias/proofhub/2026-11-10_fin.png) |
-| 17/11/2026 | 2 | Configuración y documentación del servicio LDAP. | _completar_ | Captura pendiente de incorporar al repositorio (recibida) |
+| 17/11/2026 | 2 | Configuración y documentación del servicio LDAP. | _completar_ | Captura recibida; pendiente de subir a GitHub |\n| 18/11/2026 | 2 | Revisión y cierre del segundo sprint; feedback del profesor a partir de la rúbrica. | _completar_ | Rúbrica SP2 (documento entregado) |\n| 24/11/2026 | 3 | Continuación de la documentación técnica en Markdown, especialmente los servicios y la organización del repositorio. | _completar_ | Sin captura de ProofHub recibida |
 
 **Registro diario**
 
